@@ -1,0 +1,180 @@
+-- MI TEAM GUI
+
+-- GUI
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "MITEAM_GUI"
+
+local frame = Instance.new("Frame", gui)
+frame.BackgroundColor3 = Color3.fromRGB(255, 192, 175)
+frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+frame.Size = UDim2.new(0, 300, 0, 250)
+frame.Draggable = true
+frame.Active = true
+
+-- Título
+local title = Instance.new("TextLabel", frame)
+title.Text = "MI GUI"
+title.TextColor3 = Color3.fromRGB(0, 0, 0)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 20
+title.Position = UDim2.new(0, 10, 0, 5)
+title.Size = UDim2.new(0, 100, 0, 25)
+
+-- Botão minimizar
+local minimize = Instance.new("TextButton", frame)
+minimize.Text = "-"
+minimize.TextColor3 = Color3.fromRGB(0, 0, 0)
+minimize.BackgroundColor3 = Color3.fromRGB(255, 150, 150)
+minimize.Position = UDim2.new(1, -25, 0, 5)
+minimize.Size = UDim2.new(0, 20, 0, 20)
+
+local originalSize = frame.Size
+local minimized = false
+
+minimize.MouseButton1Click:Connect(function()
+	if minimized then
+		frame.Size = originalSize
+		for _, v in pairs(frame:GetChildren()) do
+			if v:IsA("TextButton") and v ~= minimize then
+				v.Visible = true
+			end
+		end
+	else
+		frame.Size = UDim2.new(0, 300, 0, 35)
+		for _, v in pairs(frame:GetChildren()) do
+			if v:IsA("TextButton") and v ~= minimize then
+				v.Visible = false
+			end
+		end
+	end
+	minimized = not minimized
+end)
+
+-- Botões
+local nomes = {"anti k", "lag", "sky b", "set t", "vi .mi", "bill b", "gui beta", "hint"}
+local funcoes = {}
+
+-- Função: anti kick
+funcoes["anti k"] = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/cubodegelo1116/Anti-kick-backdoor-brookhaven/refs/heads/main/antikick"))()
+end
+
+-- Função: lag
+funcoes["lag"] = function()
+	while true do end
+end
+
+-- Função: sky box
+funcoes["sky b"] = function()
+	local sky = Instance.new("Sky", game.Lighting)
+	sky.SkyboxBk = "rbxassetid://136226688958208"
+	sky.SkyboxDn = "rbxassetid://136226688958208"
+	sky.SkyboxFt = "rbxassetid://136226688958208"
+	sky.SkyboxLf = "rbxassetid://136226688958208"
+	sky.SkyboxRt = "rbxassetid://136226688958208"
+	sky.SkyboxUp = "rbxassetid://136226688958208"
+end
+
+-- Função: set textura
+funcoes["set t"] = function()
+	for _, obj in pairs(workspace:GetDescendants()) do
+		if obj:IsA("Decal") or obj:IsA("Texture") then
+			obj.Texture = "rbxassetid://136226688958208"
+		end
+	end
+end
+
+-- Função: virar bloco com textura
+funcoes["vi .mi"] = function()
+	local player = game.Players.LocalPlayer
+	local char = player.Character
+	if not char then return end
+
+	-- Salva a posição
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if not root then return end
+	local pos = root.CFrame
+
+	-- Remove tudo
+	for _, part in ipairs(char:GetChildren()) do
+		if part:IsA("BasePart") then
+			part:Destroy()
+		end
+	end
+
+	-- Cria novo bloco
+	local bloco = Instance.new("Part")
+	bloco.Size = Vector3.new(4, 4, 4)
+	bloco.Position = pos.Position
+	bloco.Anchored = false
+	bloco.CanCollide = false
+	bloco.Name = "HumanoidRootPart"
+
+	local mesh = Instance.new("Texture", bloco)
+	mesh.Texture = "rbxassetid://136226688958208"
+	mesh.StudsPerTileU = 1
+	mesh.StudsPerTileV = 1
+	mesh.Face = Enum.NormalId.Top
+
+	local humanoid = Instance.new("Humanoid")
+	humanoid.DisplayName = "MI BLOCK"
+
+	-- Remonta
+	bloco.Parent = char
+	humanoid.Parent = char
+	wait()
+	char:MoveTo(pos.Position)
+end
+
+-- Função: bill board
+funcoes["bill b"] = function()
+	local player = game.Players.LocalPlayer
+	local char = player.Character or player.CharacterAdded:Wait()
+
+	local head = char:FindFirstChild("Head")
+	if head and not head:FindFirstChild("GODTAG") then
+		local bb = Instance.new("BillboardGui", head)
+		bb.Name = "GODTAG"
+		bb.Size = UDim2.new(0, 100, 0, 40)
+		bb.StudsOffset = Vector3.new(0, 2, 0)
+		bb.AlwaysOnTop = true
+
+		local text = Instance.new("TextLabel", bb)
+		text.Size = UDim2.new(1, 0, 1, 0)
+		text.BackgroundTransparency = 1
+		text.Text = "GOD MI"
+		text.TextColor3 = Color3.fromRGB(255, 255, 0)
+		text.TextScaled = true
+	end
+end
+
+-- Função: GUI BETA
+funcoes["gui beta"] = function()
+	print("script n feito ainda")
+end
+
+-- Função: hint
+funcoes["hint"] = function()
+	local hint = Instance.new("Hint", workspace)
+	hint.Text = "server hackeado po TEAM MI"
+	wait(5)
+	hint:Destroy()
+end
+
+-- Criar botões
+for i = 1, #nomes do
+	local btn = Instance.new("TextButton", frame)
+	btn.Text = nomes[i]
+	btn.Size = UDim2.new(0, 130, 0, 25)
+	btn.Position = UDim2.new(0, ((i - 1) % 2) * 150 + 10, 0, math.floor((i - 1) / 2) * 30 + 40)
+	btn.BackgroundColor3 = Color3.fromRGB(255, 170, 150)
+	btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+	btn.Font = Enum.Font.SourceSans
+	btn.TextSize = 16
+
+	btn.MouseButton1Click:Connect(function()
+		local acao = funcoes[nomes[i]]
+		if acao then acao() end
+	end)
+end
